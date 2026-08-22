@@ -1,6 +1,19 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
+import { seedUsers } from '../seeders/seed.js';
+
+export const triggerSeed = async (req, res) => {
+  try {
+    await seedUsers();
+    return res.status(200).json({
+      message: 'Demo users (Alex, Sarah, John) seeded successfully with password demo123',
+    });
+  } catch (error) {
+    console.error('[TriggerSeed Error]', error);
+    return res.status(500).json({ error: 'Failed to seed demo users' });
+  }
+};
 
 export const login = async (req, res) => {
   try {
