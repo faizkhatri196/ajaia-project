@@ -4,8 +4,8 @@
 
 - **Project Name**: Ajaia Docs
 - **Repository URL**: [https://github.com/faizkhatri196/ajaia-project](https://github.com/faizkhatri196/ajaia-project)
-- **Frontend Vercel Deployment**: `https://ajaia-docs.vercel.app` *(Placeholder until Vercel build completes)*
-- **Backend Render API**: `https://ajaia-docs-api.onrender.com` *(Placeholder until Render build completes)*
+- **Frontend Vercel Deployment**: [https://ajaia-project-five.vercel.app](https://ajaia-project-five.vercel.app)
+- **Backend Render API**: [https://ajaia-project.onrender.com](https://ajaia-project.onrender.com)
 - **Walkthrough Recording**: [ajaia_auth_upgrade_demo_1787415309736.webp](file:///C:/Users/Infinity/.gemini/antigravity-ide/brain/ed4ef895-b236-4071-b4e6-eb2309233a4c/ajaia_auth_upgrade_demo_1787415309736.webp)
 
 ---

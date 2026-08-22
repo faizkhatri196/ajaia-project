@@ -8,7 +8,7 @@ This document provides a comprehensive reference of all system specifications, l
 
 - **Vercel Frontend Application**: [https://ajaia-project-five.vercel.app](https://ajaia-project-five.vercel.app)
 - **Vercel Info Page**: [https://ajaia-project-five.vercel.app/info](https://ajaia-project-five.vercel.app/info)
-- **Render Backend REST API**: [https://ajaia-docs-api.onrender.com](https://ajaia-docs-api.onrender.com)
+- **Render Backend REST API**: [https://ajaia-project.onrender.com](https://ajaia-project.onrender.com)
 - **GitHub Source Repository**: [https://github.com/faizkhatri196/ajaia-project](https://github.com/faizkhatri196/ajaia-project)
 
 ---
