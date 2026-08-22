@@ -74,6 +74,7 @@ async function buildAllPDFs() {
   await markdownToPDF(path.join(rootDir, 'AI-WORKFLOW.md'), path.join(rootDir, 'AI-WORKFLOW.pdf'), 'Ajaia Docs — AI Workflow & Evaluation Log');
   await markdownToPDF(path.join(rootDir, 'README.md'), path.join(rootDir, 'README.pdf'), 'Ajaia Docs — Product & Developer Guide');
   await markdownToPDF(path.join(rootDir, 'SUBMISSION.md'), path.join(rootDir, 'SUBMISSION.pdf'), 'Ajaia Docs — Official Submission Document');
+  await markdownToPDF(path.join(rootDir, 'INFO_PAGE.md'), path.join(rootDir, 'INFO_PAGE.pdf'), 'Ajaia Docs — System Info Reference Document');
 }
 
 buildAllPDFs().catch((err) => console.error('PDF Generation Error:', err));
