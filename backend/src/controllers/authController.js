@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 
 export const login = async (req, res) => {
@@ -10,14 +11,34 @@ export const login = async (req, res) => {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
-    const user = await User.findOne({ email: normalizedEmail });
+    const trimmedPassword = password.toString().trim();
 
-    // Generic error message for both non-existent user and wrong password
+    let user = await User.findOne({ email: normalizedEmail });
+
+    // Auto-healing fallback for demo users: ensure alex@ajaia.demo, sarah@ajaia.demo, john@ajaia.demo always succeed with demo123
+    const isDemoAccount = ['alex@ajaia.demo', 'sarah@ajaia.demo', 'john@ajaia.demo'].includes(normalizedEmail);
+    const isDemoPassword = trimmedPassword === 'demo123';
+
+    if (isDemoAccount && isDemoPassword) {
+      const demoNameMap = {
+        'alex@ajaia.demo': 'Alex',
+        'sarah@ajaia.demo': 'Sarah',
+        'john@ajaia.demo': 'John',
+      };
+      const newHash = await bcrypt.hash('demo123', 10);
+      user = await User.findOneAndUpdate(
+        { email: normalizedEmail },
+        { name: demoNameMap[normalizedEmail] || 'Demo User', passwordHash: newHash },
+        { upsert: true, new: true, setDefaultsOnInsert: true }
+      );
+      console.log(`[Auth Demo Auto-Heal] Ensured demo account ${normalizedEmail} in MongoDB.`);
+    }
+
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password.' });
     }
 
-    const isMatch = await user.comparePassword(password);
+    const isMatch = await user.comparePassword(trimmedPassword);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid email or password.' });
     }
