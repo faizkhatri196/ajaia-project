@@ -3,9 +3,10 @@
 ## 📌 Project Summary
 
 - **Project Name**: Ajaia Docs
-- **Live Local URL**: [http://localhost:5173](http://localhost:5173)
-- **API Server URL**: [http://localhost:5000/api](http://localhost:5000/api)
-- **Walkthrough Recording**: [ajaia_docs_demo_1787413051303.webp](file:///C:/Users/Infinity/.gemini/antigravity-ide/brain/ed4ef895-b236-4071-b4e6-eb2309233a4c/ajaia_docs_demo_1787413051303.webp)
+- **Repository URL**: [https://github.com/faizkhatri196/ajaia-project](https://github.com/faizkhatri196/ajaia-project)
+- **Frontend Vercel Deployment**: `https://ajaia-docs.vercel.app` *(Placeholder until Vercel build completes)*
+- **Backend Render API**: `https://ajaia-docs-api.onrender.com` *(Placeholder until Render build completes)*
+- **Walkthrough Recording**: [ajaia_auth_upgrade_demo_1787415309736.webp](file:///C:/Users/Infinity/.gemini/antigravity-ide/brain/ed4ef895-b236-4071-b4e6-eb2309233a4c/ajaia_auth_upgrade_demo_1787415309736.webp)
 
 ---
 
@@ -23,7 +24,7 @@ The application includes seeded demo accounts with single-click login chips on t
 
 ## ✅ Core Functionality Breakdown
 
-- [x] **Lightweight Authentication**: JWT-based session tokens with `bcryptjs` password hashing.
+- [x] **Lightweight Authentication**: JWT-based session tokens with `bcryptjs` password hashing and HttpOnly cookies.
 - [x] **Dashboard UI**: Modern SaaS interface separating owned vs shared documents with search filtering.
 - [x] **Document Creation**: Instant MongoDB creation with default titles and initial empty content.
 - [x] **TipTap Rich Text Editing**: Full support for Bold, Italic, Underline, Heading 1, Heading 2, Paragraph, Bullet list, Numbered list, Undo, and Redo.
@@ -32,7 +33,7 @@ The application includes seeded demo accounts with single-click login chips on t
 - [x] **Document Sharing**: Document owners can grant `EDITOR` access to other registered team members.
 - [x] **Backend Authorization**: Backend checks access rights on every document route, enforcing `403 Forbidden` for unauthorized requests.
 - [x] **File Import (.txt / .md)**: Import plain text or Markdown files (up to 5MB) into editable documents.
-- [x] **Automated Integration Testing**: 6 passing tests in Vitest + Supertest covering creation, sharing, 403 access control, and upload validation.
+- [x] **Automated Integration Testing**: 7 passing tests in Vitest + Supertest covering creation, sharing, 403 access control, and logout.
 - [x] **Browser E2E Session Verified**: Full end-to-end multi-user journey verified and recorded in browser session.
 - [x] **Responsive SaaS Design**: Accessible typography, dark mode theme, subtle borders, and smooth hover/focus states.
 

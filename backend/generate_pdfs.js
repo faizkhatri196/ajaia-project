@@ -7,6 +7,10 @@ const rootDir = 'c:/Users/Infinity/OneDrive/Desktop/llama-i';
 const markdownToPDF = (mdFilePath, pdfFilePath, title) => {
   return new Promise((resolve, reject) => {
     try {
+      if (!fs.existsSync(mdFilePath)) {
+        console.warn(`[PDF Generator] File ${mdFilePath} does not exist. Skipping.`);
+        return resolve();
+      }
       const mdContent = fs.readFileSync(mdFilePath, 'utf-8');
       const doc = new PDFDocument({ margin: 50, size: 'A4' });
       const stream = fs.createWriteStream(pdfFilePath);
@@ -70,7 +74,6 @@ async function buildAllPDFs() {
   await markdownToPDF(path.join(rootDir, 'AI-WORKFLOW.md'), path.join(rootDir, 'AI-WORKFLOW.pdf'), 'Ajaia Docs — AI Workflow & Evaluation Log');
   await markdownToPDF(path.join(rootDir, 'README.md'), path.join(rootDir, 'README.pdf'), 'Ajaia Docs — Product & Developer Guide');
   await markdownToPDF(path.join(rootDir, 'SUBMISSION.md'), path.join(rootDir, 'SUBMISSION.pdf'), 'Ajaia Docs — Official Submission Document');
-  await markdownToPDF(path.join(rootDir, 'VIDEO_SCRIPT.md'), path.join(rootDir, 'VIDEO_SCRIPT.pdf'), 'Ajaia Docs — 3-4 Minute Presentation Video Script');
 }
 
 buildAllPDFs().catch((err) => console.error('PDF Generation Error:', err));
