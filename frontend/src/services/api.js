@@ -7,10 +7,21 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Crucial for HttpOnly cookies
+  withCredentials: true, // For HttpOnly cookies
 });
 
-// Event bus or global handler for 401 session expiration
+// Request interceptor to attach Bearer token fallback if present
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('ajaia_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 let sessionExpiredHandler = null;
 
 export const setSessionExpiredHandler = (handler) => {
@@ -22,8 +33,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Trigger session expired handler if not already on login page
       if (!window.location.pathname.includes('/login')) {
+        localStorage.removeItem('ajaia_token');
         if (sessionExpiredHandler) {
           sessionExpiredHandler();
         }

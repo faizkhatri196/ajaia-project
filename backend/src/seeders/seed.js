@@ -3,13 +3,7 @@ import User from '../models/User.js';
 
 export const seedUsers = async () => {
   try {
-    const existingCount = await User.countDocuments();
-    if (existingCount > 0) {
-      console.log('[Seed] Users already present in database. Skipping seed.');
-      return;
-    }
-
-    console.log('[Seed] Seeding demo users...');
+    console.log('[Seed] Ensuring demo users in database...');
     const defaultPassword = 'demo123';
     const passwordHash = await bcrypt.hash(defaultPassword, 10);
 
@@ -31,8 +25,15 @@ export const seedUsers = async () => {
       },
     ];
 
-    await User.insertMany(demoUsers);
-    console.log('[Seed] Demo users seeded successfully: Alex, Sarah, John.');
+    for (const user of demoUsers) {
+      await User.findOneAndUpdate(
+        { email: user.email },
+        { name: user.name, passwordHash: user.passwordHash },
+        { upsert: true, new: true, setDefaultsOnInsert: true }
+      );
+    }
+
+    console.log('[Seed] Demo users successfully ensured: Alex, Sarah, John (password: demo123).');
   } catch (error) {
     console.error('[Seed Error]', error.message);
   }

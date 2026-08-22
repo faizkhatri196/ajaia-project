@@ -5,6 +5,7 @@ import { ToastProvider } from './context/ToastContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import EditorPage from './pages/EditorPage';
+import InfoPage from './pages/InfoPage';
 import { Loader2 } from 'lucide-react';
 
 const ProtectedRoute = ({ children }) => {
@@ -56,6 +57,7 @@ function AppRoutes() {
           </PublicOnlyRoute>
         }
       />
+      <Route path="/info" element={<InfoPage />} />
       <Route
         path="/dashboard"
         element={

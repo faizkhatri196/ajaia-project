@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { FileText, Lock, Mail, ArrowRight, Eye, EyeOff, Shield, Users, CheckCircle2 } from 'lucide-react';
+import { FileText, Lock, Mail, ArrowRight, Eye, EyeOff, Shield, CheckCircle2, Info } from 'lucide-react';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -107,22 +107,41 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <div className="text-[11px] text-slate-500 pt-8 border-t border-slate-800/60">
-            Ajaia Docs MVP — Production-Style Full-Stack Architecture
+          <div className="text-[11px] text-slate-500 pt-8 border-t border-slate-800/60 flex items-center justify-between">
+            <span>Ajaia Docs MVP Architecture</span>
+            <button
+              type="button"
+              onClick={() => navigate('/info')}
+              className="text-blue-400 hover:underline font-medium inline-flex items-center gap-1"
+            >
+              <Info className="w-3.5 h-3.5" />
+              <span>System Info</span>
+            </button>
           </div>
         </div>
 
         {/* Right Panel: Login Form & Demo Chips */}
         <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-center space-y-6 bg-slate-950/40">
           {/* Mobile Header Branding */}
-          <div className="lg:hidden flex items-center gap-3 mb-2">
-            <div className="p-2 bg-blue-600/10 text-blue-500 rounded-xl border border-blue-500/20">
-              <FileText className="w-6 h-6" />
+          <div className="lg:hidden flex items-center justify-between mb-2">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-blue-600/10 text-blue-500 rounded-xl border border-blue-500/20">
+                <FileText className="w-6 h-6" />
+              </div>
+              <div>
+                <h1 className="text-lg font-bold text-white">AJAIA DOCS</h1>
+                <p className="text-xs text-slate-400">Work together, write better.</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-lg font-bold text-white">AJAIA DOCS</h1>
-              <p className="text-xs text-slate-400">Work together, write better.</p>
-            </div>
+
+            <button
+              type="button"
+              onClick={() => navigate('/info')}
+              className="p-2 text-blue-400 hover:bg-slate-800 rounded-xl transition-colors"
+              title="System Info"
+            >
+              <Info className="w-5 h-5" />
+            </button>
           </div>
 
           <div>
@@ -216,10 +235,21 @@ const LoginPage = () => {
 
           {/* Clickable Demo Accounts Section */}
           <div className="pt-4 border-t border-slate-800 space-y-2.5">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
-              <Shield className="w-3.5 h-3.5 text-blue-400" />
-              <span>Demo Accounts (Click to populate):</span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
+                <Shield className="w-3.5 h-3.5 text-blue-400" />
+                <span>Demo Accounts (Click to populate):</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => navigate('/info')}
+                className="text-xs text-blue-400 hover:underline font-medium inline-flex items-center gap-1"
+              >
+                <Info className="w-3 h-3" />
+                <span>Info Page</span>
+              </button>
             </div>
+
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"

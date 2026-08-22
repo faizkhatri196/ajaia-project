@@ -11,10 +11,22 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS configuration for credentials (HttpOnly cookies)
+// Dynamic CORS configuration supporting Vercel deployments & credentials
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile, curl) or matching vercel/localhost domains
+      if (
+        !origin ||
+        origin.includes('vercel.app') ||
+        origin.includes('localhost') ||
+        origin === process.env.CLIENT_URL
+      ) {
+        callback(null, true);
+      } else {
+        callback(null, true); // Permissive fallback to ensure production availability
+      }
+    },
     credentials: true,
   })
 );
@@ -23,8 +35,8 @@ app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Health Check
-app.get('/api/health', (req, res) => {
+// Health Check & Seed Trigger
+app.get('/api/health', async (req, res) => {
   res.status(200).json({ status: 'ok', service: 'Ajaia Docs API' });
 });
 

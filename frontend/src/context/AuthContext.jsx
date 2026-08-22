@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data.user);
     } catch (err) {
       setUser(null);
+      localStorage.removeItem('ajaia_token');
     } finally {
       setLoading(false);
     }
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleSessionExpired = useCallback(() => {
     setUser(null);
+    localStorage.removeItem('ajaia_token');
     showError('Your session has expired. Please sign in again.');
   }, [showError]);
 
@@ -35,7 +37,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const res = await api.post('/auth/login', { email, password });
-    const { user: userData } = res.data;
+    const { token: newToken, user: userData } = res.data;
+    if (newToken) {
+      localStorage.setItem('ajaia_token', newToken);
+    }
     setUser(userData);
     return userData;
   };
@@ -46,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.error('Logout error:', err);
     } finally {
+      localStorage.removeItem('ajaia_token');
       setUser(null);
     }
   };

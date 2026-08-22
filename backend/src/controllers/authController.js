@@ -29,15 +29,17 @@ export const login = async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // Set HttpOnly cookie
+    // Set HttpOnly cookie with sameSite none for cross-domain HTTPS
+    const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('ajaia_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     return res.status(200).json({
+      token, // Returned for Bearer header fallback if cross-site cookies are blocked
       user: {
         id: user._id,
         name: user.name,
@@ -52,10 +54,11 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
+    const isProduction = process.env.NODE_ENV === 'production';
     res.clearCookie('ajaia_token', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
     });
     return res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
